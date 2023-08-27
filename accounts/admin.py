@@ -7,7 +7,7 @@ from django.contrib.auth.admin import (
 # Register your models here.
 
 
-class CustomUserAdmin(UserAdmin, admin.ModelAdmin):
+class AdminUser(UserAdmin, admin.ModelAdmin):
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
@@ -24,5 +24,9 @@ class CustomUserAdmin(UserAdmin, admin.ModelAdmin):
     ordering = ("-date_joined",)
 
 
-admin.site.register(User, CustomUserAdmin)
-admin.site.register(UserProfile)
+class AdminUserProfile(admin.ModelAdmin):
+    list_display = ("user", "country", "city", "pin_code", "created_at")
+
+
+admin.site.register(User, AdminUser)
+admin.site.register(UserProfile, AdminUserProfile)
