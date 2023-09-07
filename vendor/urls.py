@@ -1,3 +1,8 @@
-from django.urls import path
+from django.urls import path, include
+from . import views
+from accounts import views as AccountViews
 
-urlpatterns = []
+urlpatterns = [
+    path("", AccountViews.vendorDashboard, name="vendor"),
+    path("profile/", views.vprofile, name="vprofile"),
+]
