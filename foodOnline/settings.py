@@ -155,4 +155,8 @@ EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Food Online Marketplace <foodonline.param@gmail.com>"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6f9f17df905a3785a37efc1f1f6b8fd0b46b03a8
 GOOGLE_API_KEY = config("GOOGLE_API_KEY")
