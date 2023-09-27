@@ -30,9 +30,16 @@
                                                                     <li class="gal-img">
                                                                         <div class="drag-list">
                                                                             <div class="item-thumb">
-                                                                                <img class="thumbnail"
-                                                                                     src="{{ profile.profile_picture.url }}"
-                                                                                     alt="logo">
+                                                                                {% if profile.profile_picture %}
+                                                                                    <img class="thumbnail"
+                                                                                         src="{{ profile.profile_picture.url }}"
+                                                                                         alt="logo">
+                                                                                {% else %}
+                                                                                    <img class="thumbnail"
+                                                                                         src="{% static "extra-images/user.png" %}"
+                                                                                         alt="logo">
+                                                                                {% endif %}
+
                                                                             </div>
                                                                         </div>
                                                                     </li>
@@ -54,9 +61,16 @@
                                                                     <li class="gal-img">
                                                                         <div class="drag-list">
                                                                             <div class="item-thumb">
-                                                                                <img class="thumbnail"
-                                                                                     src="{{ profile.cover_photo.url }}"
-                                                                                     alt="cover photo">
+                                                                                {% if profile.cover_photo %}
+                                                                                    <img class="thumbnail"
+                                                                                         src="{{ profile.cover_photo.url }}"
+                                                                                         alt="cover photo">
+                                                                                {% else %}
+                                                                                    <img class="thumbnail"
+                                                                                         src="{% static "images/default-cover.PNG" %}"
+                                                                                         alt="cover photo">
+                                                                                {% endif %}
+
                                                                             </div>
                                                                         </div>
                                                                     </li>

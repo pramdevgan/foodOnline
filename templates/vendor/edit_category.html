@@ -17,6 +17,10 @@
                             <div class="user-holder">
                                 <h5 class="text-uppercase">Build Your Food Menu</h5>
                                 <hr>
+                                <button class="btn btn-secondary" onclick="history.back()"><i class="fa fa-backward"
+                                                                                              aria-hidden="true"></i>
+                                    Back
+                                </button>
                                 <h6>Edit Category</h6>
                                 <!--Add Category Form Start-->
                                 <form action="{% url "edit_category" category.id %}" method="post">
@@ -47,6 +51,12 @@
                                     <button type="submit" class="btn btn-info"><i class="fa fa-check"
                                                                                   aria-hidden="true"></i> &nbsp; Update
                                     </button>
+                                    <a href="{% url "delete_category" category.id %}"
+                                       onclick="return confirm('Are you sure you want to delete this category')"
+                                       class="btn btn-danger"><i
+                                            class="fa fa-trash">&nbsp;&nbsp;Delete</i>
+
+                                    </a>
                                 </form>
                                 <!--Add Category Form End-->
                             </div>

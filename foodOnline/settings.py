@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts",
     "vendor",
     "menu",
+    "marketplace",
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "marketplace.middlewares.AjaxMiddleware",
 ]
 
 ROOT_URLCONF = "foodOnline.urls"
@@ -69,6 +71,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "accounts.context_processors.get_vendor",
                 "accounts.context_processors.get_mapbox_api",
+                "marketplace.context_processors.get_cart_counter",
             ],
         },
     },

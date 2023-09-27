@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 
 def allow_only_images_validator(value):
     ext = os.path.splitext(value.name)[1]  # cover-images.jpg ['cover-images', 'jpg]
-    print(ext)
+    # print(ext)
     valid_extensions = [
         ".png",
         ".jpg",

@@ -9,13 +9,13 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("accounts", "0001_initial"),
+        ("menu", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Vendor",
+            name="Cart",
             fields=[
                 (
                     "id",
@@ -26,26 +26,20 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("vendor_name", models.CharField(max_length=50)),
-                ("vendor_slug", models.SlugField(max_length=100, unique=True)),
-                ("vendor_license", models.ImageField(upload_to="vendor/license")),
-                ("is_approved", models.BooleanField(default=False)),
+                ("quantity", models.PositiveIntegerField()),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
-                ("modified_at", models.DateTimeField(auto_now=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
                 (
-                    "user",
-                    models.OneToOneField(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="user",
-                        to=settings.AUTH_USER_MODEL,
+                    "fooditem",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="menu.fooditem"
                     ),
                 ),
                 (
-                    "user_profile",
-                    models.OneToOneField(
+                    "user",
+                    models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="user_profile",
-                        to="accounts.userprofile",
+                        to=settings.AUTH_USER_MODEL,
                     ),
                 ),
             ],
