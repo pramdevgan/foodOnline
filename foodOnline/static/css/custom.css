@@ -27,3 +27,7 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+.text-muted {
+    line-height: 12px;
+}

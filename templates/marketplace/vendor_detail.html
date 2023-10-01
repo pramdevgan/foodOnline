@@ -119,14 +119,13 @@
                                                 <ul>
                                                     {% for food in category.fooditems.all %}
                                                         <li>
-                                                            <div class="image-holder"><a
-                                                                    href="{{ food.image.url }}"><img
-                                                                    src="{{ food.image.url }}"
-                                                                    alt=""></a>
+                                                            <div class="image-holder">
+                                                                <img src="{{ food.image.url }}"
+                                                                     alt="" height="50" width="64.5">
                                                             </div>
                                                             <div class="text-holder">
                                                                 <h5>{{ food }}</h5>
-                                                                <span>{{ food.description }}</span>
+                                                                <span>{{ food.description|truncatewords:10 }}</span>
                                                             </div>
                                                             <div class="price-holder">
                                                                 <span class="price">£{{ food.price }}</span>

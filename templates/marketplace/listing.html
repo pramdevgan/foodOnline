@@ -30,10 +30,12 @@
                                                         <a href="#">
                                                             {% if vendor.user_profile.profile_picture %}
                                                                 <img src="{{ vendor.user_profile.profile_picture.url }}"
-                                                                     class="img-list wp-post-image" alt="">
+                                                                     class="img-list wp-post-image" alt="" width="50"
+                                                                     height="150%">
                                                             {% else %}
                                                                 <img src="{% static "images/default-profile.PNG" %}"
-                                                                     class="img-list wp-post-image" alt="">
+                                                                     class="img-list wp-post-image" alt="" width="50"
+                                                                     height="150%">
                                                             {% endif %}
 
                                                         </a>

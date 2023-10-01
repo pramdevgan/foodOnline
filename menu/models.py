@@ -10,7 +10,7 @@ class Category(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True)
-    description = models.TextField(max_length=250, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -32,7 +32,7 @@ class FoodItem(models.Model):
     )
     food_title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=50, unique=True)
-    description = models.TextField(max_length=250, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to="foodImages")
     is_available = models.BooleanField(default=True)
