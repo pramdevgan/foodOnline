@@ -31,3 +31,7 @@
 .text-muted {
     line-height: 12px;
 }
+
+.main-search.fancy .field-holder input[type="text"] {
+    color: black;
+}

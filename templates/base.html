@@ -29,9 +29,10 @@
     <!--Sweetalert Plugin -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--AutoComplete Script-->
-    {% if '/profile' in request.GET %}
+    {% if '/profile' in request.path %}
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&libraries=places&callback=initAutoComplete" async defer></script> -->
     {% endif %}
+
     <script src="{% static "js/custom.js" %}"></script>
     <style>
         body, .main-section p, .mce-content-body p {
@@ -60,6 +61,11 @@
 <!-- Footer End -->
 
 <!-- Modal Popup End -->
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js"></script>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js"></script>
 <script src="{% static 'js/scripts.js' %}"></script>
 <script src="{% static 'js/functions.js' %}"></script>
 </body>

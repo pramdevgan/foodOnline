@@ -43,8 +43,8 @@ class UserProfileForm(forms.ModelForm):
         validators=[allow_only_images_validator],
     )
 
-    # latitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
-    # longitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
+    latitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
+    longitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
 
     class Meta:
         model = UserProfile

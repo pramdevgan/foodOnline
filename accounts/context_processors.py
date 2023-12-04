@@ -11,4 +11,4 @@ def get_vendor(request):
 
 
 def get_mapbox_api(request):
-    return {"GOOGLE_API_KEY": settings.GOOGLE_API_KEY}
+    return {"MAPBOX_API_KEY": settings.MAPBOX_API_KEY}
