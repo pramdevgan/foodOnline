@@ -71,7 +71,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "accounts.context_processors.get_vendor",
-                "accounts.context_processors.get_mapbox_api",
+                "accounts.context_processors.get_google_api",
                 "marketplace.context_processors.get_cart_counter",
                 "marketplace.context_processors.get_cart_amounts",
             ],
@@ -162,7 +162,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Food Online Marketplace <foodonline.param@gmail.com>"
 
 
-MAPBOX_API_KEY = config("MAPBOX_API_KEY")
+GOOGLE_API_KEY = config("GOOGLE_API_KEY")
 
 # gdal304.dll
 os.environ["PATH"] = (
