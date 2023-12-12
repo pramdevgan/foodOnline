@@ -35,3 +35,20 @@
 .main-search.fancy .field-holder input[type="text"] {
     color: black;
 }
+
+table > tbody > tr > td, table > thead > tr > td {
+    border: none !important;
+}
+
+table > thead > tr > td {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+#opening_hours select {
+    padding: 5px 10px !important;
+}
+
+.btn-success.add_hour {
+    padding: 7px 15px 7px 15px;
+}

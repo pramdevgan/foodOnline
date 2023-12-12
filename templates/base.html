@@ -29,7 +29,7 @@
     <!--Sweetalert Plugin -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!--AutoComplete Script-->
-    {% if '/profile' in request.path %}
+    {% if '/profile' in request.path or '/' in request.path %}
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&libraries=places&callback=initAutoComplete" async defer></script> -->
     {% endif %}
 
