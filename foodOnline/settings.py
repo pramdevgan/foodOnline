@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "vendor",
     "menu",
     "marketplace",
+    "orders",
 ]
 
 MIDDLEWARE = [
