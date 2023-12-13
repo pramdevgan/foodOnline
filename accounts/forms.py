@@ -43,8 +43,8 @@ class UserProfileForm(forms.ModelForm):
         validators=[allow_only_images_validator],
     )
 
-    latitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
-    longitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
+    # latitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
+    # longitude = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
 
     class Meta:
         model = UserProfile
@@ -65,3 +65,9 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields:
             if field == "latitude" or field == "longitude":
                 self.fields[field].widget.attrs["readonly"] = "readonly"
+
+
+class UserInfoForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "phone_number", "email"]
