@@ -31,7 +31,7 @@ class Order(models.Model):
         ("Cancelled", "Cancelled"),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    payment_id = models.ForeignKey(
+    payment = models.ForeignKey(
         Payment, on_delete=models.SET_NULL, blank=True, null=True
     )
     order_number = models.CharField(max_length=20)

@@ -5,6 +5,20 @@ from .models import Order, Payment, OrderedFood
 # Register your models here.
 
 
+class OrderedFoodInline(admin.TabularInline):
+    model = OrderedFood
+    readonly_fields = (
+        "order",
+        "payment",
+        "user",
+        "fooditem",
+        "quantity",
+        "price",
+        "amount",
+    )
+    extra = 0
+
+
 class PaymentAdmin(admin.ModelAdmin):
     list_display = ("user", "transaction_id", "amount", "status", "created_at")
     list_display_links = ("user",)
@@ -12,6 +26,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "payment_id",
         "order_number",
         "user",
@@ -20,11 +35,13 @@ class OrderAdmin(admin.ModelAdmin):
         "is_ordered",
         "status",
     )
-    list_display_links = ("user", "payment_id")
+    inlines = [OrderedFoodInline]
+    list_display_links = ("order_number",)
 
 
 class OrderFoodAdmin(admin.ModelAdmin):
     list_display = (
+        "fooditem",
         "order",
         "payment",
         "user",
@@ -33,7 +50,10 @@ class OrderFoodAdmin(admin.ModelAdmin):
         "amount",
         "updated_at",
     )
-    list_display_links = ("order", "payment", "user")
+    list_display_links = (
+        "fooditem",
+        "order",
+    )
 
 
 admin.site.register(Payment, PaymentAdmin)

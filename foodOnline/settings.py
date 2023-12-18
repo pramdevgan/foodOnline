@@ -78,6 +78,7 @@ TEMPLATES = [
                 "marketplace.context_processors.get_cart_counter",
                 "marketplace.context_processors.get_cart_amounts",
                 "accounts.context_processors.get_user_profile",
+                "accounts.context_processors.get_paypal_client_api",
             ],
         },
     },
@@ -178,3 +179,11 @@ os.environ["PROJ_LIB"] = (
     + os.environ["PATH"]
 )
 GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, "venv/Lib/site-packages/osgeo/gdal304.dll")
+
+
+# Payment Configuration
+PYPAL_CLIENT_ID = config("PYPAL_CLIENT_ID")
+
+
+# Enable Cross Origin Popup
+SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"

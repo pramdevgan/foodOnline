@@ -1,0 +1,16 @@
+{% autoescape off %}
+    Hi {{ order.first_name }} {{ order.last_name }},
+    Thank you for your order
+    
+        
+    Order Details:
+    Your Order number: {{ order.order_number }}
+    Transaction id: {{ order.payment.transaction_id }}
+    Status: {{ order.payment.status }}
+    Payment Method: {{ order.payment.payment_method }}
+    
+    
+    
+    This is an automated email. Please do not reply.
+
+{% endautoescape %}

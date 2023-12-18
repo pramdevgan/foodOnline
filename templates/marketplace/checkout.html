@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     <!-- Main Section Start -->
     <div class="main-section pt-5">
@@ -17,7 +17,7 @@
                                 <div id="home" class="tab-pane in active">
                                     <div class="menu-itam-holder">
                                         <div id="menu-item-list-6272" class="menu-itam-list">
-                                            <form action="#" method="post">
+                                            <form action="{% url 'place_order' %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     <div class="form_group col-md-6 col-lg-6 col-sm-12 col-sx-12">
@@ -76,35 +76,29 @@
                                     <div class="menu-itam-holder">
                                         <div id="menu-item-list-6272" class="menu-itam-list">
                                             <ul>
-                                                {% if cart_items %}
-                                                    {% for item in cart_items %}
-                                                        <li id="cart-item-{{ item.id }}">
-                                                            <div class="image-holder">
-                                                                <a>
-                                                                    <img src="{{ item.fooditem.image.url }}"
-                                                                         alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="text-holder">
-                                                                <h5>{{ item.fooditem }}</h5>
-                                                                <span>{{ item.fooditem.description|truncatewords:7 }}</span>
-                                                                <a href="{% url "vendor_detail" item.fooditem.vendor.vendor_slug %}"
-                                                                   class="badge badge-warning">{{ item.fooditem.vendor }}</a>
-                                                            </div>
-                                                            <div class="quantity"
-                                                                 style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -9px">
-                                                                <span>{{ item.quantity }} QTY</span>
-                                                            </div>
-                                                            <div class="price-holder">
-                                                                <span class="price">£{{ item.fooditem.price }}</span>
-                                                            </div>
-                                                        </li>
-                                                    {% endfor %}
-                                                {% else %}
-                                                    <div class="text-center p-5">
-                                                        <h3>Cart is Empty</h3>
-                                                    </div>
-                                                {% endif %}
+                                                {% for item in cart_items %}
+                                                    <li id="cart-item-{{ item.id }}">
+                                                        <div class="image-holder">
+                                                            <a>
+                                                                <img src="{{ item.fooditem.image.url }}"
+                                                                     alt="">
+                                                            </a>
+                                                        </div>
+                                                        <div class="text-holder">
+                                                            <h5>{{ item.fooditem }}</h5>
+                                                            <span>{{ item.fooditem.description|truncatewords:7 }}</span>
+                                                            <a href="{% url "vendor_detail" item.fooditem.vendor.vendor_slug %}"
+                                                               class="badge badge-warning">{{ item.fooditem.vendor }}</a>
+                                                        </div>
+                                                        <div class="quantity"
+                                                             style="display: inline-block; position: absolute; top: 50%; transform: translateY(-50%); margin-top: -9px">
+                                                            <span>{{ item.quantity }} QTY</span>
+                                                        </div>
+                                                        <div class="price-holder">
+                                                            <span class="price">£{{ item.fooditem.price }}</span>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
                                         <div>
@@ -137,7 +131,29 @@
                                                         <span id="total">{{ grand_total }}</span>
                                                     </span>
                                                 </li>
-                                                <button type="submit"
+                                                <!-- Select Payment Method Start--->
+                                                <h5 class="text-uppercase">Select Payment Method</h5>
+                                                <div class="payment-method">
+                                                    <label>
+                                                        <input type="radio" name="payment_method" value="PayPal">
+                                                        <img class="paypal" src="{% static "images/PayPal.png" %}"
+                                                             alt="PayPal" width="120">
+                                                    </label>
+                                                    &emsp;
+                                                    &emsp;
+                                                    &emsp;
+                                                    <label>
+                                                        <input type="radio" name="payment_method"
+                                                               value="RazorPay">
+                                                        <img src="{% static "images/razorpay_logo.png" %}"
+                                                             alt="RazorPay" width="120">
+                                                    </label>
+                                                </div>
+                                                <span class="text-danger" id="payment-method-error"></span>
+
+                                                <!-- Select Payment Method Start--->
+                                                <button onclick="return payMethodConfirm();"
+                                                        type="submit"
                                                         class="btn btn-danger w-100 p-2 mt-3 text"
                                                         style="font-size: 20px">Place Order
                                                 </button>
@@ -158,4 +174,26 @@
         </div>
     </div>
     <!-- Main Section End -->
+
+    <script>
+        function payMethodConfirm() {
+            var payMethod = $("input[name='payment_method']:checked").val()
+            if (!payMethod) {
+                $('#payment-method-error').html("Select Payment Method");
+                return false;
+            } else {
+                var conf = confirm(`You have selected ${payMethod} as your preferred payment method. \nClick "OK" to continue`)
+                if (conf === true) {
+                    return true
+
+                } else {
+                    return false;
+                }
+            }
+        }
+        
+        $('input[name=payment_method]').on('change', function () {
+            $('#payment-method-error').html("");
+        })
+    </script>
 {% endblock %}
