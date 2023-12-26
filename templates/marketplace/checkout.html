@@ -148,6 +148,16 @@
                                                         <img src="{% static "images/razorpay_logo.png" %}"
                                                              alt="RazorPay" width="120">
                                                     </label>
+
+                                                    <!--
+                                                    <label>
+                                                        <input type="radio" name="payment_method"
+                                                               value="Cash on Delivery">
+                                                        <img src="{% static "images/cash_on_delivery.png" %}"
+                                                             alt="Cash on Delivery" width="120" height="90"
+                                                             style="margin-left: 40px">
+                                                    </label>
+                                                    --->
                                                 </div>
                                                 <span class="text-danger" id="payment-method-error"></span>
 
@@ -191,7 +201,7 @@
                 }
             }
         }
-        
+
         $('input[name=payment_method]').on('change', function () {
             $('#payment-method-error').html("");
         })

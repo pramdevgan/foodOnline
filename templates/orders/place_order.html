@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
     <!-- Main Section Start -->
     <div class="main-section pt-5">
@@ -94,10 +94,27 @@
                                                         <span id="total">{{ grand_total }}</span>
                                                     </span>
                                                 </li>
-                                                <!-- PayPal Checkout Button Start-->
-                                                <div id="paypal-button-container"></div>
 
-                                                <!-- PayPal Checkout Button End-->
+                                                {% if order.payment_method == 'PayPal' %}
+                                                    <!-- PayPal Checkout Button Start-->
+                                                    <div id="paypal-button-container"></div>
+                                                    <!-- PayPal Checkout Button End-->
+                                                {% elif order.payment_method == 'RazorPay' %}
+                                                    <!-- RazorPay Checkout Button Start-->
+                                                    <div id="rzp_payment_button">
+                                                        <button class="btn btn-danger w-100 p-2" id="rzp-button1">Pay
+                                                            with RazorPay
+                                                        </button>
+                                                        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                                    </div>
+                                                    <!-- RazorPay Checkout Button End-->
+                                                {% elif order.payment_method == 'Cash on Delivery' %}
+                                                    <button id="confirm-order-button" class="btn btn-danger w-100 p-2">
+                                                        Confirm Order
+                                                    </button>
+                                                {% endif %}
+
+
                                             </ul>
                                         </div>
                                     </div>
@@ -148,7 +165,7 @@
                     "csrfmiddlewaretoken": csrftoken,
                 },
                 success: function (response) {
-                    console.log("response===>", response);
+                    // console.log("response===>", response);
                     window.location.href = order_complete + '?order_number=' + response.order_number + '&transaction_id=' + response.transaction_id
 
                 }
@@ -183,6 +200,57 @@
                 });
             }
         }).render('#paypal-button-container')
+
+        // RazorPay Payment Gateway Start
+        var options = {
+            "key": "{{ RZP_KEY_ID }}", // Enter the Key ID generated from the Dashboard
+            "amount": "{{ rzp_amount }}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "FoodOnline", //your business name
+            "description": "FoodOnline- Multi Vendor Restaurant Marketplace",
+            "image": "{% static 'logo/foodOnlineLogo.png' %}",
+            "order_id": "{{ rzp_order_id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                //alert(response.razorpay_payment_id);
+                //alert(response.razorpay_order_id);
+                //alert(response.razorpay_signature)
+                const element = document.getElementById('rzp_payment_button');
+                element.innerHTML = '';
+                element.innerHTML = '<h4 class="text-center"><i class="fa fa-spinner fa-spin"></i> Please Wait...</h4>'
+                var transaction_id = response.razorpay_payment_id
+                var payment_method = 'RazorPay'
+                var status = 'Success'
+                sendTransaction(transaction_id, payment_method, status)
+            },
+            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                "name": "{{ order.name }}", //your customer's name
+                "email": "{{ order.email }}",
+                "contact": "{{ order.phone_number }}"  //Provide the customer's phone number for better conversion rates
+            },
+            "notes": {
+                "address": "{{ order.address }}"
+            },
+            "theme": {
+                "color": "#dc3545"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+            // alert(response.error.code);
+            // alert(response.error.description);
+            // alert(response.error.source);
+            // alert(response.error.step);
+            // alert(response.error.reason);
+            // alert(response.error.metadata.order_id);
+            // alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+        // RazorPay Payment Gateway End
+
+
     </script>
     <!-- Main Section End -->
 {% endblock %}
