@@ -6,6 +6,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode
 from django.template.defaultfilters import slugify
 
+from orders.models import Order
 from vendor.forms import VendorForm
 from vendor.models import Vendor
 from .forms import UserForm
@@ -76,7 +77,6 @@ def registerUser(request):
             print(form.errors)
             # errors = form.errors
             # return errors
-
     else:
         UserForm()
     context = {
@@ -192,7 +192,14 @@ def myAccount(request):
 @user_passes_test(check_role_customer)
 @login_required(login_url="login")
 def customerDashboard(request):
-    return render(request, "accounts/customerDashboard.html")
+    orders = Order.objects.filter(user=request.user, is_ordered=True)
+    recent_orders = orders[:5]
+    context = {
+        "orders": orders,
+        "order_counts": orders.count(),
+        "recent_orders": recent_orders,
+    }
+    return render(request, "accounts/customerDashboard.html", context)
 
 
 @user_passes_test(check_role_vendor)
