@@ -14,6 +14,7 @@ from .models import User, UserProfile
 from django.contrib import messages, auth
 
 from .utils import detectUser, send_verification_email
+import datetime
 
 
 # Custom Decorators
@@ -205,7 +206,35 @@ def customerDashboard(request):
 @user_passes_test(check_role_vendor)
 @login_required(login_url="login")
 def vendorDashboard(request):
-    return render(request, "accounts/vendorDashboard.html")
+    vendor = Vendor.objects.get(user=request.user)
+    orders = Order.objects.filter(vendors__in=[vendor.id], is_ordered=True).order_by(
+        "-created_at"
+    )
+    recent_orders = orders[:5]
+
+    # current month's revenue
+    current_month = datetime.datetime.now().month
+    current_month_orders = orders.filter(
+        vendors__in=[vendor.id], created_at__month=current_month
+    )
+    # print(current_month_orders)
+    current_month_revenue = 0
+    for i in current_month_orders:
+        current_month_revenue += i.get_total_by_vendor()["grand_total"]
+    print(current_month_revenue)
+    # Total Revenue
+    total_revenue = 0
+    for i in orders:
+        total_revenue += i.get_total_by_vendor()["grand_total"]
+
+    context = {
+        "orders": orders,
+        "order_counts": orders.count(),
+        "recent_orders": recent_orders,
+        "total_revenue": total_revenue,
+        "current_month_revenue": current_month_revenue,
+    }
+    return render(request, "accounts/vendorDashboard.html", context)
 
 
 def forgot_password(request):

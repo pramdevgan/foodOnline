@@ -82,6 +82,18 @@ table > thead > tr > td {
     outline: 1px solid #ff0000;
 }
 
-.table-generic > li > div {
-    padding: 18px 2px !important;
+
+/*Datatable customization*/
+
+/*#myOrdersTable tbody tr {*/
+/*    background-color: #e0d084;*/
+/*}*/
+
+#myOrdersTable tbody tr:hover {
+    background-color: #c5c0a2;
+}
+
+#myOrdersTable tbody tr.selected {
+    background-color: #a2d3f6;
+    color: #fff;
 }

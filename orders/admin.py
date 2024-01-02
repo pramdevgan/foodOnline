@@ -34,6 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
         "total",
         "is_ordered",
         "status",
+        "order_placed_to",
     )
     inlines = [OrderedFoodInline]
     list_display_links = ("order_number",)
